@@ -5,13 +5,13 @@
 %define qtimageformats_d %mklibname qt%{major}imageformats -d
 
 Name:		qt5-qtimageformats
-Version:	5.5.1
+Version:	5.6.0
 %if "%{beta}" != ""
-Release:	1.%{beta}.1
+Release:	0.%{beta}.1
 %define qttarballdir qtimageformats-opensource-src-%{version}-%{beta}
 Source0:	http://download.qt.io/development_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}-%{beta}/submodules/%{qttarballdir}.tar.xz
 %else
-Release:	2
+Release:	1
 %define qttarballdir qtimageformats-opensource-src-%{version}
 Source0:	http://download.qt.io/official_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}/submodules/%{qttarballdir}.tar.xz
 %endif
