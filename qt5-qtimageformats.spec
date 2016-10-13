@@ -5,7 +5,7 @@
 %define qtimageformats_d %mklibname qt%{major}imageformats -d
 
 Name:		qt5-qtimageformats
-Version:	5.6.1
+Version:	5.6.2
 %if "%{beta}" != ""
 Release:	1.%{beta}.1
 %define qttarballdir qtimageformats-opensource-src-%{version}-%{beta}
