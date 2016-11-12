@@ -1,13 +1,13 @@
 %define api %(echo %{version} |cut -d. -f1)
 %define major %api
-%define beta %nil
+%define beta beta
 
 %define qtimageformats_d %mklibname qt%{major}imageformats -d
 
 Name:		qt5-qtimageformats
-Version:	5.7.0
+Version:	5.8.0
 %if "%{beta}" != ""
-Release:	1.%{beta}.1
+Release:	0.%{beta}.1
 %define qttarballdir qtimageformats-opensource-src-%{version}-%{beta}
 Source0:	http://download.qt.io/development_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}-%{beta}/submodules/%{qttarballdir}.tar.xz
 %else
