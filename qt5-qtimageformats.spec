@@ -1,6 +1,6 @@
 %define api %(echo %{version} |cut -d. -f1)
 %define major %api
-%define beta beta
+%define beta rc
 
 %define qtimageformats_d %mklibname qt%{major}imageformats -d
 
@@ -49,7 +49,6 @@ Devel files needed to build apps based on QtImageFormats.
 %{_qt5_libdir}/cmake/Qt5Gui/Qt5Gui_QTgaPlugin.cmake
 %{_qt5_libdir}/cmake/Qt5Gui/Qt5Gui_QTiffPlugin.cmake
 %{_qt5_libdir}/cmake/Qt5Gui/Qt5Gui_QWbmpPlugin.cmake
-%{_qt5_libdir}/cmake/Qt5Gui/Qt5Gui_QDDSPlugin.cmake
 %{_qt5_libdir}/cmake/Qt5Gui/Qt5Gui_QICNSPlugin.cmake
 %{_qt5_libdir}/cmake/Qt5Gui/Qt5Gui_QJp2Plugin.cmake
 %{_qt5_libdir}/cmake/Qt5Gui/Qt5Gui_QWebpPlugin.cmake
