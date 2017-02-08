@@ -1,13 +1,13 @@
 %define api %(echo %{version} |cut -d. -f1)
 %define major %api
-%define beta %nil
+%define beta %{nil}
 
 %define qtimageformats_d %mklibname qt%{major}imageformats -d
 
 Name:		qt5-qtimageformats
-Version:	5.6.2
+Version:	5.8.0
 %if "%{beta}" != ""
-Release:	1.%{beta}.1
+Release:	0.%{beta}.1
 %define qttarballdir qtimageformats-opensource-src-%{version}-%{beta}
 Source0:	http://download.qt.io/development_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}-%{beta}/submodules/%{qttarballdir}.tar.xz
 %else
@@ -49,7 +49,6 @@ Devel files needed to build apps based on QtImageFormats.
 %{_qt5_libdir}/cmake/Qt5Gui/Qt5Gui_QTgaPlugin.cmake
 %{_qt5_libdir}/cmake/Qt5Gui/Qt5Gui_QTiffPlugin.cmake
 %{_qt5_libdir}/cmake/Qt5Gui/Qt5Gui_QWbmpPlugin.cmake
-%{_qt5_libdir}/cmake/Qt5Gui/Qt5Gui_QDDSPlugin.cmake
 %{_qt5_libdir}/cmake/Qt5Gui/Qt5Gui_QICNSPlugin.cmake
 %{_qt5_libdir}/cmake/Qt5Gui/Qt5Gui_QJp2Plugin.cmake
 %{_qt5_libdir}/cmake/Qt5Gui/Qt5Gui_QWebpPlugin.cmake
