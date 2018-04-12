@@ -24,6 +24,8 @@ BuildRequires:	tiff-devel
 BuildRequires:	pkgconfig(libmng)
 BuildRequires:	pkgconfig(libwebp)
 BuildRequires:	pkgconfig(jasper)
+# For the Provides: generator
+BuildRequires:	cmake >= 3.11.0-1
 
 
 %description
