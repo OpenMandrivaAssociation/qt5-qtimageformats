@@ -4,6 +4,9 @@
 
 %define qtimageformats_d %mklibname qt%{major}imageformats -d
 
+# filter plugin provides
+%define __provides_exclude_from ^%{_qt5_plugindir}/.*\\.so$
+
 Name:		qt5-qtimageformats
 Version:	5.11.2
 %if "%{beta}" != ""
@@ -27,14 +30,13 @@ BuildRequires:	pkgconfig(jasper)
 # For the Provides: generator
 BuildRequires:	cmake >= 3.11.0-1
 
-
 %description
 Qt is a GUI software toolkit which simplifies the task of writing and
 maintaining GUI (Graphical User Interface) applications for the X
 Window System. Qt is written in C++ and is fully object-oriented.
 
 %files
-%_qt5_plugindir/imageformats/*.so
+%{_qt5_plugindir}/imageformats/*.so
 
 #------------------------------------------------------------------------------
 %package -n	%{qtimageformats_d}
@@ -58,13 +60,13 @@ Devel files needed to build apps based on QtImageFormats.
 #------------------------------------------------------------------------------
 
 %prep
-%setup -q -n %qttarballdir
+%autosetup -n %qttarballdir -p1
 
 %build
 %qmake_qt5
 
 #------------------------------------------------------------------------------
-%make
+%make_build
 
 %install
-%makeinstall_std INSTALL_ROOT=%{buildroot}
+%make_install INSTALL_ROOT=%{buildroot}
