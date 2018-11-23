@@ -1,4 +1,5 @@
 removed_sources:
   qtimageformats-opensource-src-5.9.2.tar.xz: dbf9b3a906da8d38cfe240c36b43cd2b7507d44e
-sources:
   qtimageformats-opensource-src-5.9.6.tar.xz: 868998cf3a924ea9acb367f634643188c0e59f64
+sources:
+  qtimageformats-opensource-src-5.9.7.tar.xz: 9e534861d2f66ffadf0a20c8b384d24ea94ec55e
