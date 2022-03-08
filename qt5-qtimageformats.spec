@@ -14,12 +14,12 @@ Release:	0.%{beta}.1
 %define qttarballdir qtimageformats-everywhere-src-%{version}-%{beta}
 Source0:	http://download.qt.io/development_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}-%{beta}/submodules/%{qttarballdir}.tar.xz
 %else
-Release:	2
-%define qttarballdir qtimageformats-everywhere-src-5.15.2
-Source0:	http://download.qt.io/official_releases/qt/%(echo %{version}|cut -d. -f1-2)/5.15.2/submodules/%{qttarballdir}.tar.xz
+Release:	3
+%define qttarballdir qtimageformats-everywhere-opensource-src-%{version}
+Source0:	http://download.qt.io/official_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}/submodules/%{qttarballdir}.tar.xz
 %endif
 # From KDE
-Patch1000:	0001-Bump-version.patch
+# [currently no patches required]
 Summary:	Qt GUI toolkit
 Group:		Development/KDE and Qt
 License:	LGPLv2 with exceptions or GPLv3 with exceptions and GFDL
@@ -64,7 +64,7 @@ Devel files needed to build apps based on QtImageFormats.
 #------------------------------------------------------------------------------
 
 %prep
-%autosetup -n %qttarballdir -p1
+%autosetup -n %(echo %qttarballdir|sed -e 's,-opensource,,') -p1
 
 %build
 %qmake_qt5
