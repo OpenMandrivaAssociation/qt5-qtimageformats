@@ -1,0 +1,35 @@
+From 27819bc0cdbc26786a1232d749a4e5a2a8eca26f Mon Sep 17 00:00:00 2001
+From: Moody Liu <mooodyhunter@outlook.com>
+Date: Fri, 17 Jun 2022 23:21:45 +0100
+Subject: [PATCH 3/3] jp2: use correct buffer_size for jas_stream_memopen
+
+According to jasper's documentation, the second argument should
+be 0 instead of -1, to acquire such a dynamically growing
+buffer. This also causes a runtime crash due to the signedness of
+size_t.
+
+Fixes: QTBUG-104398
+Pick-to: 6.4 6.3 6.2 5.15
+Change-Id: I173c6b7c9802c22fe0fa01083a71bf3b6ca7b134
+Reviewed-by: Liang Qi <liang.qi@qt.io>
+(cherry picked from commit ad2e721683b7c68748b05862fe8cf33bf63ebf55)
+---
+ src/plugins/imageformats/jp2/qjp2handler.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/plugins/imageformats/jp2/qjp2handler.cpp b/src/plugins/imageformats/jp2/qjp2handler.cpp
+index 5082023..a77c10d 100644
+--- a/src/plugins/imageformats/jp2/qjp2handler.cpp
++++ b/src/plugins/imageformats/jp2/qjp2handler.cpp
+@@ -857,7 +857,7 @@ bool Jpeg2000JasperReader::write(const QImage &image, int quality)
+     }
+ 
+     // Open an empty jasper stream that grows automatically
+-    jas_stream_t * memory_stream = jas_stream_memopen(0, -1);
++    jas_stream_t * memory_stream = jas_stream_memopen(0, 0);
+ 
+     // Jasper wants a non-const string.
+     char *str = qstrdup(jasperFormatString.toLatin1().constData());
+-- 
+2.36.1
+
