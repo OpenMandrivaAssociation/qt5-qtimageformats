@@ -1,0 +1,79 @@
+From 0ee52083683c9fcd996118ef62d9e60b5431a520 Mon Sep 17 00:00:00 2001
+From: Moody Liu <mooodyhunter@outlook.com>
+Date: Fri, 17 Jun 2022 23:58:18 +0100
+Subject: [PATCH 4/4] jp2: use new APIs for jasper 3
+
+using new APIs prevents the runtime deprecated warning.
+also note the memory limit is now set to 500MB
+
+Task-number: QTBUG-104398
+Pick-to: 6.4 6.3 6.2 5.15
+Change-Id: I1b307ec33c6a540a5fb9121214d89a73a509a0d3
+Reviewed-by: Eirik Aavitsland <eirik.aavitsland@qt.io>
+(cherry picked from commit 4011d03f84d19bdfa6e30b6b7a6792f90b30a259)
+---
+ src/plugins/imageformats/jp2/qjp2handler.cpp | 31 ++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
+
+diff --git a/src/plugins/imageformats/jp2/qjp2handler.cpp b/src/plugins/imageformats/jp2/qjp2handler.cpp
+index a77c10d..cb34374 100644
+--- a/src/plugins/imageformats/jp2/qjp2handler.cpp
++++ b/src/plugins/imageformats/jp2/qjp2handler.cpp
+@@ -43,6 +43,7 @@
+ #include "qimage.h"
+ #include "qvariant.h"
+ #include "qcolor.h"
++#include "qimagereader.h"
+ 
+ #include <jasper/jasper.h>
+ #include <math.h> // for pow
+@@ -333,16 +334,46 @@ private:
+ Jpeg2000JasperReader::Jpeg2000JasperReader(QIODevice *iod, SubFormat format)
+     : jasperOk(true), ioDevice(iod), format(format), hasAlpha(false)
+ {
++#if JAS_VERSION_MAJOR < 3
+     if (jas_init()) {
+         jasperOk = false;
+         qDebug("Jasper Library initialization failed");
+     }
++#else
++    jas_conf_clear();
++#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
++    jas_conf_set_max_mem_usage(QImageReader::allocationLimit() * 1024 * 1024);
++#else
++    // 128MB seems to be enough.
++    jas_conf_set_max_mem_usage(128 * 1024 * 1024);
++#endif
++    if (jas_init_library()) {
++        jasperOk = false;
++        qDebug("Jasper library initialization failed");
++    }
++    if (jas_init_thread()) {
++        jas_cleanup_library();
++        jasperOk = false;
++        qDebug("Jasper thread initialization failed");
++    }
++#endif
+ }
+ 
+ Jpeg2000JasperReader::~Jpeg2000JasperReader()
+ {
++#if JAS_VERSION_MAJOR < 3
+     if (jasperOk)
+         jas_cleanup();
++#else
++    if (jasperOk) {
++        if (jas_cleanup_thread()) {
++            qDebug("Jasper thread cleanup failed");
++        }
++        if (jas_cleanup_library()) {
++            qDebug("Jasper library cleanup failed");
++        }
++    }
++#endif
+ }
+ 
+ /*! \internal
+-- 
+2.37.2
+

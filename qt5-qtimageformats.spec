@@ -14,12 +14,15 @@ Release:	0.%{beta}.1
 %define qttarballdir qtimageformats-everywhere-src-%{version}-%{beta}
 Source0:	http://download.qt.io/development_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}-%{beta}/submodules/%{qttarballdir}.tar.xz
 %else
-Release:	1
+Release:	2
 %define qttarballdir qtimageformats-everywhere-opensource-src-%{version}
 Source0:	http://download.qt.io/official_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}/submodules/%{qttarballdir}.tar.xz
 %endif
 # From KDE
 Patch1000:	0001-Add-some-basic-checking-against-corrupt-input.patch
+Patch1001:	0002-Check-earlier-to-avoid-sanitzer-warnings.patch
+Patch1002:	0003-jp2-use-correct-buffer_size-for-jas_stream_memopen.patch
+Patch1003:	0004-jp2-use-new-APIs-for-jasper-3.patch
 Summary:	Qt GUI toolkit
 Group:		Development/KDE and Qt
 License:	LGPLv2 with exceptions or GPLv3 with exceptions and GFDL
