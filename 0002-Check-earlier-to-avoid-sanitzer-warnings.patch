@@ -1,4 +1,4 @@
-From b7313c6963033a027c31049daf6bacc6138e127a Mon Sep 17 00:00:00 2001
+From d2f902c1a5e4505e9675b91e98306a9af94ddea2 Mon Sep 17 00:00:00 2001
 From: Robert Loehning <robert.loehning@qt.io>
 Date: Fri, 3 Jun 2022 16:40:30 +0200
 Subject: [PATCH 2/4] Check earlier to avoid sanitzer warnings

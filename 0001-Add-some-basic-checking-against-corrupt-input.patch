@@ -1,4 +1,4 @@
-From c7bf53ffd6cf091118eabb3e98a7652b4af8fa6e Mon Sep 17 00:00:00 2001
+From ddedd3d0fc120e45849b036b0356f6151ee27b02 Mon Sep 17 00:00:00 2001
 From: Eirik Aavitsland <eirik.aavitsland@qt.io>
 Date: Fri, 13 May 2022 11:42:35 +0200
 Subject: [PATCH 1/4] Add some basic checking against corrupt input
