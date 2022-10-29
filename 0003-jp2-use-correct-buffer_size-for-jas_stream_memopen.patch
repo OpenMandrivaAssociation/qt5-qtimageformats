@@ -1,7 +1,7 @@
-From dcd5dc789b87493da2d02cad928d50dc7368d7e4 Mon Sep 17 00:00:00 2001
+From 377d3a1f85f0d007d334f563fb5e35f790637280 Mon Sep 17 00:00:00 2001
 From: Moody Liu <mooodyhunter@outlook.com>
 Date: Fri, 17 Jun 2022 23:21:45 +0100
-Subject: [PATCH 3/4] jp2: use correct buffer_size for jas_stream_memopen
+Subject: [PATCH 3/5] jp2: use correct buffer_size for jas_stream_memopen
 
 According to jasper's documentation, the second argument should
 be 0 instead of -1, to acquire such a dynamically growing
@@ -31,5 +31,5 @@ index 5082023..a77c10d 100644
      // Jasper wants a non-const string.
      char *str = qstrdup(jasperFormatString.toLatin1().constData());
 -- 
-2.37.2
+2.38.1
 

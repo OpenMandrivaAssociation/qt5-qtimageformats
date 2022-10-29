@@ -1,0 +1,36 @@
+From 1b83a9c73d6e5459ec4c2221b2bd7e5396b5e874 Mon Sep 17 00:00:00 2001
+From: Eirik Aavitsland <eirik.aavitsland@qt.io>
+Date: Fri, 7 Oct 2022 09:34:30 +0200
+Subject: [PATCH 5/5] Reject tiled tiffs with corrupt tile size early
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Work around a shortcoming in libtiff where it spends time discovering
+the corruption.
+
+Fixes: QTBUG-107223
+Pick-to: 6.4 6.2 5.15
+Change-Id: Ib5da260fe971d0f7d808f7215bf388c443318cb4
+Reviewed-by: Robert Löhning <robert.loehning@qt.io>
+(cherry picked from commit 4f83c3ebfdb2bc97162ac1065091c195b60ff5fb)
+---
+ src/plugins/imageformats/tiff/qtiffhandler.cpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/plugins/imageformats/tiff/qtiffhandler.cpp b/src/plugins/imageformats/tiff/qtiffhandler.cpp
+index 1386750..ac8956c 100644
+--- a/src/plugins/imageformats/tiff/qtiffhandler.cpp
++++ b/src/plugins/imageformats/tiff/qtiffhandler.cpp
+@@ -361,6 +361,8 @@ bool QTiffHandler::read(QImage *image)
+     }
+ 
+     TIFF *const tiff = d->tiff;
++    if (TIFFIsTiled(tiff) && TIFFTileSize64(tiff) > uint64_t(image->sizeInBytes())) // Corrupt image
++        return false;
+     const quint32 width = d->size.width();
+     const quint32 height = d->size.height();
+ 
+-- 
+2.38.1
+

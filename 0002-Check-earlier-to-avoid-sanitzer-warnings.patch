@@ -1,7 +1,7 @@
-From d2f902c1a5e4505e9675b91e98306a9af94ddea2 Mon Sep 17 00:00:00 2001
+From c5299a8c2d0cdda29cd3189311be69c7b7da81fd Mon Sep 17 00:00:00 2001
 From: Robert Loehning <robert.loehning@qt.io>
 Date: Fri, 3 Jun 2022 16:40:30 +0200
-Subject: [PATCH 2/4] Check earlier to avoid sanitzer warnings
+Subject: [PATCH 2/5] Check earlier to avoid sanitzer warnings
 
 Fixes oss-fuzz issue 47689: "load of value 65, which
 is not a valid value for type 'ICNSEntry::Depth'"
@@ -43,5 +43,5 @@ index d6fc589..1bf9074 100644
      return true;
  }
 -- 
-2.37.2
+2.38.1
 
