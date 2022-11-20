@@ -24,6 +24,7 @@ Patch1001:	0002-Check-earlier-to-avoid-sanitzer-warnings.patch
 Patch1002:	0003-jp2-use-correct-buffer_size-for-jas_stream_memopen.patch
 Patch1003:	0004-jp2-use-new-APIs-for-jasper-3.patch
 Patch1004:	0005-Reject-tiled-tiffs-with-corrupt-tile-size-early.patch
+Patch1005:	0006-webp-support-sequential-input-device-if-full-file-is.patch
 Summary:	Qt GUI toolkit
 Group:		Development/KDE and Qt
 License:	LGPLv2 with exceptions or GPLv3 with exceptions and GFDL
