@@ -1,7 +1,7 @@
-From a372d94ed7b46356f1d2c43798d14c05dd775159 Mon Sep 17 00:00:00 2001
+From cc53c365eb7e1a06bc127bcedf5e6558c55a5e61 Mon Sep 17 00:00:00 2001
 From: Eirik Aavitsland <eirik.aavitsland@qt.io>
 Date: Fri, 13 May 2022 11:42:35 +0200
-Subject: [PATCH 1/5] Add some basic checking against corrupt input
+Subject: [PATCH 1/6] Add some basic checking against corrupt input
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit

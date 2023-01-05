@@ -1,4 +1,4 @@
-From adbc372b890ed90f006a6c4f3ca56bf0cba477ef Mon Sep 17 00:00:00 2001
+From abe44c0f526e499668b1131c5990d9b571f99c46 Mon Sep 17 00:00:00 2001
 From: Eirik Aavitsland <eirik.aavitsland@qt.io>
 Date: Thu, 8 Sep 2022 14:52:19 +0200
 Subject: [PATCH 6/6] webp: support sequential input device if full file is

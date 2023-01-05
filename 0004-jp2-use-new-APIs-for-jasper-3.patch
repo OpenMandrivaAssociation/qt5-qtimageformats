@@ -1,7 +1,7 @@
-From d18d9ebbe8396e6408c854cb995243b2e047db19 Mon Sep 17 00:00:00 2001
+From 8c5b49f1e34bbc93ab2baea1ebe572dd3c99d9d8 Mon Sep 17 00:00:00 2001
 From: Moody Liu <mooodyhunter@outlook.com>
 Date: Fri, 17 Jun 2022 23:58:18 +0100
-Subject: [PATCH 4/5] jp2: use new APIs for jasper 3
+Subject: [PATCH 4/6] jp2: use new APIs for jasper 3
 
 using new APIs prevents the runtime deprecated warning.
 also note the memory limit is now set to 500MB
