@@ -1,7 +1,7 @@
-From cc53c365eb7e1a06bc127bcedf5e6558c55a5e61 Mon Sep 17 00:00:00 2001
+From ca4477468dc208cd19c0d7e69568b77a66a4e562 Mon Sep 17 00:00:00 2001
 From: Eirik Aavitsland <eirik.aavitsland@qt.io>
 Date: Fri, 13 May 2022 11:42:35 +0200
-Subject: [PATCH 1/6] Add some basic checking against corrupt input
+Subject: [PATCH 1/9] Add some basic checking against corrupt input
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -74,5 +74,5 @@ index dde783c..d6fc589 100644
  
  const ICNSEntry &QICNSHandler::getIconMask(const ICNSEntry &icon) const
 -- 
-2.38.1
+2.40.0.rc2
 
