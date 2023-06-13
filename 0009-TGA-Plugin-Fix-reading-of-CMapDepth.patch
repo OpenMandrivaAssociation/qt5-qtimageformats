@@ -1,4 +1,4 @@
-From c249f58541afa45955c23b75c1fb88c5e3e4d18b Mon Sep 17 00:00:00 2001
+From 5aa33ec870977863c400103db94da452edbaf414 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Robert=20L=C3=B6hning?= <robert.loehning@qt.io>
 Date: Thu, 5 Jan 2023 23:45:43 +0100
 Subject: [PATCH 9/9] TGA Plugin: Fix reading of CMapDepth
@@ -52,5 +52,5 @@ index 5d086c6..3961c16 100644
      mDevice->seek(HeaderSize + offset);
  
 -- 
-2.40.0.rc2
+2.41.0.rc2
 

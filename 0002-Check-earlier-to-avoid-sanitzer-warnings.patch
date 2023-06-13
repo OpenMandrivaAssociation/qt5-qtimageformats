@@ -1,4 +1,4 @@
-From d972eb7aa81705c4919f608d2a9f3ba46cbf13c1 Mon Sep 17 00:00:00 2001
+From 6de99b86f19ccec5372082f8576551a411b83e94 Mon Sep 17 00:00:00 2001
 From: Robert Loehning <robert.loehning@qt.io>
 Date: Fri, 3 Jun 2022 16:40:30 +0200
 Subject: [PATCH 2/9] Check earlier to avoid sanitzer warnings
@@ -43,5 +43,5 @@ index d6fc589..1bf9074 100644
      return true;
  }
 -- 
-2.40.0.rc2
+2.41.0.rc2
 

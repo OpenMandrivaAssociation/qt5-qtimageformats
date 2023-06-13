@@ -1,4 +1,4 @@
-From cd18c1910c405f512379e10b1ddc65f110d7a1dd Mon Sep 17 00:00:00 2001
+From cfe4ffaa720935f6d8f4f82445a94a31276d45da Mon Sep 17 00:00:00 2001
 From: Volker Hilsheimer <volker.hilsheimer@qt.io>
 Date: Fri, 18 Mar 2022 09:16:36 +0100
 Subject: [PATCH 7/9] Explicitly include QVarLengthArray header
@@ -35,5 +35,5 @@ index ac8956c..b385273 100644
  #include "tiffio.h"
  }
 -- 
-2.40.0.rc2
+2.41.0.rc2
 

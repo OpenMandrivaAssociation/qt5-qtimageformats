@@ -1,4 +1,4 @@
-From ab2f906cb013b8db81a335a72fba82587db668af Mon Sep 17 00:00:00 2001
+From 6e0001c074f608857c247a44c17be6d13997b26e Mon Sep 17 00:00:00 2001
 From: Moody Liu <mooodyhunter@outlook.com>
 Date: Fri, 17 Jun 2022 23:21:45 +0100
 Subject: [PATCH 3/9] jp2: use correct buffer_size for jas_stream_memopen
@@ -31,5 +31,5 @@ index 5082023..a77c10d 100644
      // Jasper wants a non-const string.
      char *str = qstrdup(jasperFormatString.toLatin1().constData());
 -- 
-2.40.0.rc2
+2.41.0.rc2
 

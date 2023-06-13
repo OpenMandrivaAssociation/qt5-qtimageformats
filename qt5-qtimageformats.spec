@@ -8,26 +8,26 @@
 %define __provides_exclude_from ^%{_qt5_plugindir}/.*\\.so$
 
 Name:		qt5-qtimageformats
-Version:	5.15.9
+Version:	5.15.10
 %if "%{beta}" != ""
 Release:	0.%{beta}.1
 %define qttarballdir qtimageformats-everywhere-src-%{version}-%{beta}
 Source0:	http://download.qt.io/development_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}-%{beta}/submodules/%{qttarballdir}.tar.xz
 %else
-Release:	2
+Release:	1
 %define qttarballdir qtimageformats-everywhere-opensource-src-%{version}
 Source0:	http://download.qt.io/official_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}/submodules/%{qttarballdir}.tar.xz
 %endif
 # From KDE
-Patch1000:	0001-Add-some-basic-checking-against-corrupt-input.patch
-Patch1001:	0002-Check-earlier-to-avoid-sanitzer-warnings.patch
-Patch1002:	0003-jp2-use-correct-buffer_size-for-jas_stream_memopen.patch
-Patch1003:	0004-jp2-use-new-APIs-for-jasper-3.patch
-Patch1004:	0005-Reject-tiled-tiffs-with-corrupt-tile-size-early.patch
-Patch1005:	0006-webp-support-sequential-input-device-if-full-file-is.patch
-Patch1006:	0007-Explicitly-include-QVarLengthArray-header.patch
-Patch1007:	0008-Implement-support-for-file-memory-mapping-for-tiff-r.patch
-Patch1008:	0009-TGA-Plugin-Fix-reading-of-CMapDepth.patch
+Patch1001:	0001-Add-some-basic-checking-against-corrupt-input.patch
+Patch1002:	0002-Check-earlier-to-avoid-sanitzer-warnings.patch
+Patch1003:	0003-jp2-use-correct-buffer_size-for-jas_stream_memopen.patch
+Patch1004:	0004-jp2-use-new-APIs-for-jasper-3.patch
+Patch1005:	0005-Reject-tiled-tiffs-with-corrupt-tile-size-early.patch
+Patch1006:	0006-webp-support-sequential-input-device-if-full-file-is.patch
+Patch1007:	0007-Explicitly-include-QVarLengthArray-header.patch
+Patch1008:	0008-Implement-support-for-file-memory-mapping-for-tiff-r.patch
+Patch1009:	0009-TGA-Plugin-Fix-reading-of-CMapDepth.patch
 Summary:	Qt GUI toolkit
 Group:		Development/KDE and Qt
 License:	LGPLv2 with exceptions or GPLv3 with exceptions and GFDL
