@@ -1,7 +1,7 @@
-From 600f5d5eb2666599c9c3445d0516529fb19276ef Mon Sep 17 00:00:00 2001
+From 63d1031d8aee8ab1b714781857b3e88a35d5cf1f Mon Sep 17 00:00:00 2001
 From: Eirik Aavitsland <eirik.aavitsland@qt.io>
 Date: Fri, 7 Oct 2022 09:34:30 +0200
-Subject: [PATCH 5/9] Reject tiled tiffs with corrupt tile size early
+Subject: [PATCH 01/12] Reject tiled tiffs with corrupt tile size early
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -32,5 +32,5 @@ index 1386750..ac8956c 100644
      const quint32 height = d->size.height();
  
 -- 
-2.41.0.rc2
+2.42.0
 

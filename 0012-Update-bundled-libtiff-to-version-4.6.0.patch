@@ -1,0 +1,937 @@
+From b22bf4d0d77c7dafe8b4622f8bb45ac0b9cc9bdd Mon Sep 17 00:00:00 2001
+From: Eirik Aavitsland <eirik.aavitsland@qt.io>
+Date: Fri, 15 Sep 2023 18:22:32 +0200
+Subject: [PATCH 12/12] Update bundled libtiff to version 4.6.0
+
+[ChangeLog][Third-Party Code] Bundled libtiff was updated to version 4.6.0
+
+Pick-to: 6.6 6.5 6.2 5.15
+Change-Id: Ia6c5df57d6759c1b1544f1777266cdb703f80faa
+Reviewed-by: Qt CI Bot <qt_ci_bot@qt-project.org>
+Reviewed-by: Eskil Abrahamsen Blomfeldt <eskil.abrahamsen-blomfeldt@qt.io>
+(cherry picked from commit 4feed665065ac10281d74eaaf3dbcdaef2bbdd0f)
+---
+ src/3rdparty/libtiff/ChangeLog                | 366 ++++++++++++++++++
+ src/3rdparty/libtiff/RELEASE-DATE             |   2 +-
+ src/3rdparty/libtiff/VERSION                  |   2 +-
+ src/3rdparty/libtiff/libtiff/tif_config.h     |  33 --
+ .../libtiff/libtiff/tif_config.h.cmake.in     |  29 +-
+ src/3rdparty/libtiff/libtiff/tif_config.h.in  |  27 --
+ src/3rdparty/libtiff/libtiff/tif_dirread.c    |   2 +-
+ src/3rdparty/libtiff/libtiff/tif_dirwrite.c   |  33 +-
+ src/3rdparty/libtiff/libtiff/tif_webp.c       |  87 ++++-
+ src/3rdparty/libtiff/libtiff/tiff.h           |   3 +-
+ src/3rdparty/libtiff/libtiff/tiffio.h         |   2 +-
+ src/3rdparty/libtiff/libtiff/tiffvers.h       |  14 +-
+ src/3rdparty/libtiff/qt_attribution.json      |   2 +-
+ 13 files changed, 488 insertions(+), 114 deletions(-)
+
+diff --git a/src/3rdparty/libtiff/ChangeLog b/src/3rdparty/libtiff/ChangeLog
+index 2124816..87b5f12 100644
+--- a/src/3rdparty/libtiff/ChangeLog
++++ b/src/3rdparty/libtiff/ChangeLog
+@@ -1,3 +1,369 @@
++2023-09-05  Even Rouault  <even.rouault@spatialys.com>
++
++	libtiff v4.6.0 released
++
++2023-09-05  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'fix_600' into 'master'
++	CMake: fix build with -Dstrip-chopping=off (fixes #600)
++
++	See merge request libtiff/libtiff!527
++
++2023-09-05  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'georgthegreat-master-patch-87447' into 'master'
++	Fix using __attribute__ libtiff with clang-for-windows
++
++	See merge request libtiff/libtiff!525
++
++2023-09-05  Yuriy Chernyshov  <georgthegreat@gmail.com>
++
++	Fix using __attribute__ libtiff with clang-for-windows.
++
++2023-09-05  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'manpage_TIFFField_docu_update' into 'master'
++	manpages: TiffField functions documentation updated with return behaviour for...
++
++	See merge request libtiff/libtiff!526
++
++2023-09-05  Even Rouault  <even.rouault@spatialys.com>
++
++	CMake: fix build with -Dstrip-chopping=off (fixes #600)
++
++2023-09-03  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'consistently_update_TIFF-version_from_configure-ac' into 'master'
++	Update CMake and autoconf scripts to consistently update LibTIFF version...
++
++	See merge request libtiff/libtiff!456
++
++2023-09-03  Su Laus  <sulau@freenet.de>
++
++	Update CMake and autoconf scripts to consistently update LibTIFF version defines and references in various files when version definition in configure.ac has been changed.
++	- Move in tiffvers.h from .\libtiff source directory to .\libtiff  build directory.
++	- Remove unused version information from tif_config.h
++	- With every CMake build the version defines (e.g. 4.5.1) within tiffvers.h are consistently updated from configure.ac. The version release-date is taken from file RELEASE-DATE.
++	- The files VERSION and RELEASE-DATE are only updated with a special CMake target build: cmake --build . --target tiff_release.
++
++	- For autotools, version information is updated from configure.ac with ./autogen.sh. LIBTIFF_RELEASE_DATE is taken form file RELEASE-DATE.
++	- ./configure generates tiffvers.h with the cached version information and LIBTIFF_RELEASE_DATE.
++	- "make release" updates tiffvers.h and VERSION file with cached version info and RELEASE-DATE file and tiffves.h with the current date.
++
++2023-08-28  Su_Laus  <sulau@freenet.de>
++
++	manpages: TiffField functions documentation updated with return behaviour for not defined tags and determination of write-/read-count size.
++
++2023-08-22  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'change_long_to_int32_t_in_two_test_apps' into 'master'
++	Change "long" to "int32_t" in two test apps, because can be either int32_t or...
++
++	See merge request libtiff/libtiff!524
++
++2023-08-21  Su_Laus  <sulau@freenet.de>
++
++	Change "long" to "int32_t" in two test apps, because can be either int32_t or int64_t, depending on compiler and system.
++
++2023-08-16  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'CI_CMake_static_build' into 'master'
++	Add static build for CI/CD to run testcases which need private interface functions.
++
++	See merge request libtiff/libtiff!521
++
++2023-08-16  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'fix_#597_tiffset_different_signedness' into 'master'
++	tiffset fix #597: warning: comparison of integer expressions of different signedness.
++
++	Closes #597
++
++	See merge request libtiff/libtiff!523
++
++2023-08-16  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'tiffcp_remove_i_option' into 'master'
++	tiffcp: remove -i option (ignore errors)
++
++	See merge request libtiff/libtiff!522
++
++2023-08-16  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'move_tools_to_unsupported_a_archive' into 'master'
++	Move most TIFF tools to archive and keep some as unsupported (see #580).
++
++	See merge request libtiff/libtiff!520
++
++2023-08-16  Su Laus  <sulau@freenet.de>
++
++	Move most TIFF tools to archive and keep some as unsupported (see #580).
++
++2023-08-12  Su_Laus  <sulau@freenet.de>
++
++	Add static build for CI/CD to run testcases which need private interface functions.
++
++	tiffset fix #597: warning: comparison of integer expressions of different signedness.
++
++	Remove -i option (ignore errors) from tiffcp, because almost all fuzzer issues were consequential errors from ignored errors because of the "-i" option.
++
++2023-08-11  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'fix_585_test_write_read_tags_autoconf' into 'master'
++	Add missing test_write_read_tags.c and test_transferfunction_write_read.c in...
++
++	Closes #585
++
++	See merge request libtiff/libtiff!519
++
++2023-07-24  Even Rouault  <even.rouault@spatialys.com>
++
++	Fix copy paste error.
++
++2023-07-23  Su_Laus  <sulau@freenet.de>
++
++	Add missing test_write_read_tags.c and test_transferfunction_write_read.c in tarball (fixes #585) and correct „long“ issue.
++	Don't use "long" because can be int32_t or int64_t, depending on compiler and system.
++
++2023-07-20  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'clang-format-tools' into 'master'
++	Automatically format with clang-format
++
++	See merge request libtiff/libtiff!518
++
++2023-07-20  Timothy Lyanguzov  <timothy.lyanguzov@sap.com>
++
++	Automatically format with clang-format.
++
++2023-07-20  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'fix_589' into 'master'
++	TiffConfig.cmake.in: set TIFF_INCLUDE_DIR, TIFF_INCLUDE_DIRS and...
++
++	Closes #589
++
++	See merge request libtiff/libtiff!514
++
++2023-07-20  Even Rouault  <even.rouault@spatialys.com>
++
++	TiffConfig.cmake.in: set TIFF_INCLUDE_DIR, TIFF_INCLUDE_DIRS and...
++
++2023-07-19  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'master-patch-6fc6' into 'master'
++	raw2tiff: fix integer overflow and bypass of the check (fixes #592)
++
++	See merge request libtiff/libtiff!516
++
++2023-07-19  Arie Haenel  <arie.haenel@jct.ac.il>
++
++	raw2tiff: fix integer overflow and bypass of the check (fixes #592)
++
++2023-07-19  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'master-patch-05a4' into 'master'
++	tiffcp: fix memory corruption (overflow) on hostile images (fixes #591)
++
++	See merge request libtiff/libtiff!515
++
++2023-07-19  Arie Haenel  <arie.haenel@jct.ac.il>
++
++	tiffcp: fix memory corruption (overflow) on hostile images (fixes #591)
++
++2023-07-17  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'fix-numtrunc' into 'master'
++	fix numtrunc at tiff_dirread.c
++
++	See merge request libtiff/libtiff!512
++
++2023-07-17  headshog  <craaaaaachind@gmail.com>
++
++	TIFFReadDirectoryCheckOrder: avoid integer overflow.
++	When it occurs, it should be harmless in practice though
++
++2023-07-17  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'webp_lossless_exact' into 'master'
++	WebP codec: turn exact mode when creating lossless files to avoid altering...
++
++	See merge request libtiff/libtiff!511
++
++2023-07-11  Even Rouault  <even.rouault@spatialys.com>
++
++	WebP codec: turn exact mode when creating lossless files to avoid altering R,G,B values in areas where alpha=0
++	Fixes https://github.com/OSGeo/gdal/issues/8038
++
++2023-07-05  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'webp_reg_fix' into 'master'
++	WebP decoder: fix error when reading a 3-band blob in a RGBA image
++
++	See merge request libtiff/libtiff!510
++
++2023-07-05  Even Rouault  <even.rouault@spatialys.com>
++
++	WebP decoder: fix error when reading a 3-band blob in a RGBA image.
++	Fixes regression of 350ff161c8a61b6483a1e4689e09cd47dd0dd5f9 (master only)
++
++2023-06-26  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'appveyor_fix' into 'master'
++	.appveyor.yml: workaround build error
++
++	See merge request libtiff/libtiff!509
++
++2023-06-26  Even Rouault  <even.rouault@spatialys.com>
++
++	.appveyor.yml: workaround build error.
++
++2023-06-26  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'tif_webp_warning_fixes' into 'master'
++	tif_webp.c: fix signed vs unsigned comparison warnings (fix previous commit)
++
++	See merge request libtiff/libtiff!508
++
++2023-06-26  Even Rouault  <even.rouault@spatialys.com>
++
++	tif_webp.c: fix signed vs unsigned comparison warnings (fix previous commit)
++
++2023-06-26  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'fix_TransferFunction_writing' into 'master'
++	Fix TransferFunction writing of only two transfer functions.
++
++	See merge request libtiff/libtiff!502
++
++2023-06-26  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'fix_581_582' into 'master'
++	WebP decoder: validate WebP blob width, height, band count against TIFF parameters
++
++	Closes #582 et #581
++
++	See merge request libtiff/libtiff!507
++
++2023-06-19  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'warning_cmake_config_file' into 'master'
++	v4.5.1 release note: add warning about CMake config file being preview
++
++	See merge request libtiff/libtiff!506
++
++2023-06-17  Even Rouault  <even.rouault@spatialys.com>
++
++	WebP decoder: validate WebP blob width, height, band count against TIFF parameters
++	to avoid use of uninitialized variable, or decoding corrupted content
++	without explicit error
++
++	Fixes #581, fixes #582
++
++2023-06-15  Even Rouault  <even.rouault@spatialys.com>
++
++	v4.5.1 release note: add warning about CMake config file being preview.
++
++2023-06-14  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'HOWTO-RELEASE-gitlab-release' into 'master'
++	HOWTO-RELEASE: mention creating a gitlab release
++
++	See merge request libtiff/libtiff!505
++
++2023-06-14  Even Rouault  <even.rouault@spatialys.com>
++
++	HOWTO-RELEASE: mention creating a gitlab release.
++
++2023-06-10  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'TIFFOpenWExt_O_RDWR' into 'master'
++	TIFFOpenWExt(): mode r+ in the Windows implementation adjusted to that of Linux
++
++	See merge request libtiff/libtiff!504
++
++2023-06-10  Even Rouault  <even.rouault@spatialys.com>
++
++	TIFFOpenWExt(): mode r+ in the Windows implementation adjusted to that of Linux
++
++2023-06-10  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'fix_ossfuzz_59751' into 'master'
++	TIFFReadDirectory(): fix crash when reading tag TIFFTAG_EP_BATTERYLEVEL
++
++	See merge request libtiff/libtiff!503
++
++2023-06-10  Even Rouault  <even.rouault@spatialys.com>
++
++	TIFFReadDirectory(): fix crash when reading tag TIFFTAG_EP_BATTERYLEVEL.
++	Fixes https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=59751
++
++	In 738e0409 (refs #575), we disabled DNG / EP tags, but there was a
++	special proessing for TIFFTAG_EP_BATTERYLEVEL that must be disabled
++	since the tag is no longer defined.
++
++2023-06-09  Su_Laus  <sulau@freenet.de>
++
++	Fix TransferFunction writing of only two transfer functions. The TIFFWriteDirectoryTagTransferfunction() function writes in some cases only two transfer functions, although only exactly one or exactly three transfer functions are allowed. This then leads to an error when reading. --> TIFFReadDirectory: Warning, Incorrect count for "TransferFunction"; tag ignored.
++	This MR corrects the behaviour of TIFFWriteDirectoryTagTransferfunction() accordingly. Furthermore, a possible buffer overflow is avoided.
++
++2023-06-09  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'fix_win_build' into 'master'
++	Fix Windows build
++
++	Closes #578
++
++	See merge request libtiff/libtiff!501
++
++2023-06-09  Even Rouault  <even.rouault@spatialys.com>
++
++	cmake/PkgConfig.cmake: avoid CMake error when prefix or suffix is empty.
++
++	Add tif_win32_versioninfo.rc and tif_tools_versioninfo.rc to EXTRA_DIST.
++
++2023-06-09  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'fix_coverity_build' into 'master'
++	build/gitlab-ci: fix coverity_build()
++
++	See merge request libtiff/libtiff!499
++
++2023-06-09  Even Rouault  <even.rouault@spatialys.com>
++
++	build/gitlab-ci: fix coverity_build()
++
++2023-06-09  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'v4.5.1rc1_preparation' into 'master'
++	Prepare release 4.5.1
++
++	See merge request libtiff/libtiff!498
++
++2023-06-09  Even Rouault  <even.rouault@spatialys.com>
++
++	Prepare for v4.5.1 release.
++
++	Merge remote-tracking branch 'sulaus/Rel_4.5.1_preparation'
++
++2023-06-09  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'disable_dng_tags' into 'master'
++	tif_dirinfo.c: disable DNG 1.2->1.6 tags
++
++	Closes #575
++
++	See merge request libtiff/libtiff!497
++
++2023-06-09  Even Rouault  <even.rouault@spatialys.com>
++
++	Merge branch 'fix_577' into 'master'
++	CMake related fixes
++
++	Closes #577
++
++	See merge request libtiff/libtiff!496
++
+ 2023-06-09  Even Rouault  <even.rouault@spatialys.com>
+ 
+ 	libtiff v4.5.1 released
+diff --git a/src/3rdparty/libtiff/RELEASE-DATE b/src/3rdparty/libtiff/RELEASE-DATE
+index a4ca097..68d9434 100644
+--- a/src/3rdparty/libtiff/RELEASE-DATE
++++ b/src/3rdparty/libtiff/RELEASE-DATE
+@@ -1 +1 @@
+-20230609
++20230908
+diff --git a/src/3rdparty/libtiff/VERSION b/src/3rdparty/libtiff/VERSION
+index 4404a17..6016e8a 100644
+--- a/src/3rdparty/libtiff/VERSION
++++ b/src/3rdparty/libtiff/VERSION
+@@ -1 +1 @@
+-4.5.1
++4.6.0
+diff --git a/src/3rdparty/libtiff/libtiff/tif_config.h b/src/3rdparty/libtiff/libtiff/tif_config.h
+index 95ccbd3..7922155 100644
+--- a/src/3rdparty/libtiff/libtiff/tif_config.h
++++ b/src/3rdparty/libtiff/libtiff/tif_config.h
+@@ -4,10 +4,6 @@
+ 
+ #include "tiffconf.h"
+ 
+-#if defined(Q_OS_WINCE)
+-#include <qfunctions_wince.h>
+-#endif
+-
+ #if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)
+ #define _CRT_SECURE_NO_WARNINGS
+ #endif
+@@ -36,9 +32,7 @@
+ #define HAVE_DECL_OPTARG 0
+ 
+ /* Define to 1 if you have the <fcntl.h> header file. */
+-#if !defined(Q_OS_WINCE)
+ #define HAVE_FCNTL_H 1
+-#endif
+ 
+ /* Define to 1 if fseeko (and presumably ftello) exists and is declared. */
+ /* #undef HAVE_FSEEKO */
+@@ -46,18 +40,6 @@
+ /* Define to 1 if you have the `getopt' function. */
+ /* #undef HAVE_GETOPT */
+ 
+-/* Define to 1 if you have the <GLUT/glut.h> header file. */
+-/* #undef HAVE_GLUT_GLUT_H */
+-
+-/* Define to 1 if you have the <GL/glut.h> header file. */
+-/* #undef HAVE_GL_GLUT_H */
+-
+-/* Define to 1 if you have the <GL/glu.h> header file. */
+-/* #undef HAVE_GL_GLU_H */
+-
+-/* Define to 1 if you have the <GL/gl.h> header file. */
+-/* #undef HAVE_GL_GL_H */
+-
+ /* Define to 1 if you have the <io.h> header file. */
+ /* #undef HAVE_IO_H */
+ 
+@@ -67,12 +49,6 @@
+ /* Define to 1 if you have the `mmap' function. */
+ /* #undef HAVE_MMAP */
+ 
+-/* Define to 1 if you have the <OpenGL/glu.h> header file. */
+-/* #undef HAVE_OPENGL_GLU_H */
+-
+-/* Define to 1 if you have the <OpenGL/gl.h> header file. */
+-/* #undef HAVE_OPENGL_GL_H */
+-
+ /* Define to 1 if you have the `setmode' function. */
+ /* #undef HAVE_SETMODE */
+ 
+@@ -111,18 +87,12 @@
+ /* Define to the full name of this package. */
+ /* #undef PACKAGE_NAME */
+ 
+-/* Define to the full name and version of this package. */
+-/* #undef PACKAGE_STRING */
+-
+ /* Define to the one symbol short name of this package. */
+ /* #undef PACKAGE_TARNAME */
+ 
+ /* Define to the home page for this package. */
+ /* #undef PACKAGE_URL */
+ 
+-/* Define to the version of this package. */
+-/* #undef PACKAGE_VERSION */
+-
+ /* The size of `size_t', as computed by sizeof. */
+ #if SIZE_MAX == 0xffffffff
+ #define SIZEOF_SIZE_T 4
+@@ -139,9 +109,6 @@
+ /* define to use win32 IO system */
+ /* #undef USE_WIN32_FILEIO */
+ 
+-/* Version number of package */
+-#define VERSION "4.5.1"
+-
+ /* Support webp compression */
+ /* #undef WEBP_SUPPORT */
+ 
+diff --git a/src/3rdparty/libtiff/libtiff/tif_config.h.cmake.in b/src/3rdparty/libtiff/libtiff/tif_config.h.cmake.in
+index 1547af4..62a4c73 100644
+--- a/src/3rdparty/libtiff/libtiff/tif_config.h.cmake.in
++++ b/src/3rdparty/libtiff/libtiff/tif_config.h.cmake.in
+@@ -40,18 +40,6 @@
+ /* Define to 1 if you have the `getopt' function. */
+ #cmakedefine HAVE_GETOPT 1
+ 
+-/* Define to 1 if you have the <GLUT/glut.h> header file. */
+-#cmakedefine HAVE_GLUT_GLUT_H 1
+-
+-/* Define to 1 if you have the <GL/glut.h> header file. */
+-#cmakedefine HAVE_GL_GLUT_H 1
+-
+-/* Define to 1 if you have the <GL/glu.h> header file. */
+-#cmakedefine HAVE_GL_GLU_H 1
+-
+-/* Define to 1 if you have the <GL/gl.h> header file. */
+-#cmakedefine HAVE_GL_GL_H 1
+-
+ /* Define to 1 if you have the <io.h> header file. */
+ #cmakedefine HAVE_IO_H 1
+ 
+@@ -61,12 +49,6 @@
+ /* Define to 1 if you have the `mmap' function. */
+ #cmakedefine HAVE_MMAP 1
+ 
+-/* Define to 1 if you have the <OpenGL/glu.h> header file. */
+-#cmakedefine HAVE_OPENGL_GLU_H 1
+-
+-/* Define to 1 if you have the <OpenGL/gl.h> header file. */
+-#cmakedefine HAVE_OPENGL_GL_H 1
+-
+ /* Define to 1 if you have the `setmode' function. */
+ #cmakedefine HAVE_SETMODE 1
+ 
+@@ -100,23 +82,17 @@
+ /* Define to the full name of this package. */
+ #define PACKAGE_NAME "@PACKAGE_NAME@"
+ 
+-/* Define to the full name and version of this package. */
+-#define PACKAGE_STRING "@PACKAGE_STRING@"
+-
+ /* Define to the one symbol short name of this package. */
+ #define PACKAGE_TARNAME "@PACKAGE_TARNAME@"
+ 
+ /* Define to the home page for this package. */
+ #define PACKAGE_URL "@PACKAGE_URL@"
+ 
+-/* Define to the version of this package. */
+-#define PACKAGE_VERSION "@PACKAGE_VERSION@"
+-
+ /* Size of size_t */
+ #define SIZEOF_SIZE_T @SIZEOF_SIZE_T@
+ 
+ /* Default size of the strip in bytes (when strip chopping enabled) */
+-#define STRIP_SIZE_DEFAULT @STRIP_SIZE_DEFAULT@
++#cmakedefine STRIP_SIZE_DEFAULT @STRIP_SIZE_DEFAULT@
+ 
+ /** Maximum number of TIFF IFDs that libtiff can iterate through in a file. */
+ #define TIFF_MAX_DIR_COUNT @TIFF_MAX_DIR_COUNT@
+@@ -124,9 +100,6 @@
+ /* define to use win32 IO system */
+ #cmakedefine USE_WIN32_FILEIO 1
+ 
+-/* Version number of package */
+-#define VERSION "@PACKAGE_VERSION@"
+-
+ /* Support WEBP compression */
+ #cmakedefine WEBP_SUPPORT 1
+ 
+diff --git a/src/3rdparty/libtiff/libtiff/tif_config.h.in b/src/3rdparty/libtiff/libtiff/tif_config.h.in
+index 87c08bb..28da641 100644
+--- a/src/3rdparty/libtiff/libtiff/tif_config.h.in
++++ b/src/3rdparty/libtiff/libtiff/tif_config.h.in
+@@ -40,18 +40,6 @@
+ /* Define to 1 if you have the `getopt' function. */
+ #undef HAVE_GETOPT
+ 
+-/* Define to 1 if you have the <GLUT/glut.h> header file. */
+-#undef HAVE_GLUT_GLUT_H
+-
+-/* Define to 1 if you have the <GL/glut.h> header file. */
+-#undef HAVE_GL_GLUT_H
+-
+-/* Define to 1 if you have the <GL/glu.h> header file. */
+-#undef HAVE_GL_GLU_H
+-
+-/* Define to 1 if you have the <GL/gl.h> header file. */
+-#undef HAVE_GL_GL_H
+-
+ /* Define to 1 if you have the <io.h> header file. */
+ #undef HAVE_IO_H
+ 
+@@ -61,12 +49,6 @@
+ /* Define to 1 if you have the `mmap' function. */
+ #undef HAVE_MMAP
+ 
+-/* Define to 1 if you have the <OpenGL/glu.h> header file. */
+-#undef HAVE_OPENGL_GLU_H
+-
+-/* Define to 1 if you have the <OpenGL/gl.h> header file. */
+-#undef HAVE_OPENGL_GL_H
+-
+ /* Define to 1 if you have the `setmode' function. */
+ #undef HAVE_SETMODE
+ 
+@@ -103,18 +85,12 @@
+ /* Define to the full name of this package. */
+ #undef PACKAGE_NAME
+ 
+-/* Define to the full name and version of this package. */
+-#undef PACKAGE_STRING
+-
+ /* Define to the one symbol short name of this package. */
+ #undef PACKAGE_TARNAME
+ 
+ /* Define to the home page for this package. */
+ #undef PACKAGE_URL
+ 
+-/* Define to the version of this package. */
+-#undef PACKAGE_VERSION
+-
+ /* The size of `size_t', as computed by sizeof. */
+ #undef SIZEOF_SIZE_T
+ 
+@@ -127,9 +103,6 @@
+ /* define to use win32 IO system */
+ #undef USE_WIN32_FILEIO
+ 
+-/* Version number of package */
+-#undef VERSION
+-
+ /* Support webp compression */
+ #undef WEBP_SUPPORT
+ 
+diff --git a/src/3rdparty/libtiff/libtiff/tif_dirread.c b/src/3rdparty/libtiff/libtiff/tif_dirread.c
+index 717cbc8..2c49dc6 100644
+--- a/src/3rdparty/libtiff/libtiff/tif_dirread.c
++++ b/src/3rdparty/libtiff/libtiff/tif_dirread.c
+@@ -5038,7 +5038,7 @@ static void TIFFReadDirectoryCheckOrder(TIFF *tif, TIFFDirEntry *dir,
+                                         uint16_t dircount)
+ {
+     static const char module[] = "TIFFReadDirectoryCheckOrder";
+-    uint16_t m;
++    uint32_t m;
+     uint16_t n;
+     TIFFDirEntry *o;
+     m = 0;
+diff --git a/src/3rdparty/libtiff/libtiff/tif_dirwrite.c b/src/3rdparty/libtiff/libtiff/tif_dirwrite.c
+index a6a485f..d8844bb 100644
+--- a/src/3rdparty/libtiff/libtiff/tif_dirwrite.c
++++ b/src/3rdparty/libtiff/libtiff/tif_dirwrite.c
+@@ -2073,34 +2073,41 @@ static int TIFFWriteDirectoryTagTransferfunction(TIFF *tif, uint32_t *ndir,
+         (*ndir)++;
+         return (1);
+     }
++    /* TIFFTAG_TRANSFERFUNCTION expects (1 or 3) pointer to arrays with
++     *  (1 << BitsPerSample) * uint16_t values.
++     */
+     m = (1 << tif->tif_dir.td_bitspersample);
+-    n = tif->tif_dir.td_samplesperpixel - tif->tif_dir.td_extrasamples;
++    /* clang-format off */
++    n = (tif->tif_dir.td_samplesperpixel - tif->tif_dir.td_extrasamples) > 1 ? 3 : 1;
++    /* clang-format on */
++
++    /* Check for proper number of transferfunctions */
++    for (int i = 0; i < n; i++)
++    {
++        if (tif->tif_dir.td_transferfunction[i] == NULL)
++        {
++            TIFFWarningExtR(
++                tif, module,
++                "Too few TransferFunctions provided. Tag not written to file");
++            return (1); /* Not an error; only tag is not written. */
++        }
++    }
+     /*
+      * Check if the table can be written as a single column,
+      * or if it must be written as 3 columns.  Note that we
+      * write a 3-column tag if there are 2 samples/pixel and
+      * a single column of data won't suffice--hmm.
+      */
+-    if (n > 3)
+-        n = 3;
+     if (n == 3)
+     {
+-        if (tif->tif_dir.td_transferfunction[2] == NULL ||
+-            !_TIFFmemcmp(tif->tif_dir.td_transferfunction[0],
++        if (!_TIFFmemcmp(tif->tif_dir.td_transferfunction[0],
+                          tif->tif_dir.td_transferfunction[2],
+-                         m * sizeof(uint16_t)))
+-            n = 2;
+-    }
+-    if (n == 2)
+-    {
+-        if (tif->tif_dir.td_transferfunction[1] == NULL ||
++                         m * sizeof(uint16_t)) &&
+             !_TIFFmemcmp(tif->tif_dir.td_transferfunction[0],
+                          tif->tif_dir.td_transferfunction[1],
+                          m * sizeof(uint16_t)))
+             n = 1;
+     }
+-    if (n == 0)
+-        n = 1;
+     o = _TIFFmallocExt(tif, n * m * sizeof(uint16_t));
+     if (o == NULL)
+     {
+diff --git a/src/3rdparty/libtiff/libtiff/tif_webp.c b/src/3rdparty/libtiff/libtiff/tif_webp.c
+index 07db7cc..bf9d77e 100644
+--- a/src/3rdparty/libtiff/libtiff/tif_webp.c
++++ b/src/3rdparty/libtiff/libtiff/tif_webp.c
+@@ -47,9 +47,11 @@ typedef struct
+ {
+     uint16_t nSamples; /* number of samples per pixel */
+ 
+-    int lossless;               /* lossy/lossless compression */
+-    int quality_level;          /* compression level */
+-    WebPPicture sPicture;       /* WebP Picture */
++    int lossless;         /* lossy/lossless compression */
++    int lossless_exact;   /* lossless exact mode. If TRUE, R,G,B values in areas
++                             with alpha = 0 will be preserved */
++    int quality_level;    /* compression level */
++    WebPPicture sPicture; /* WebP Picture */
+     WebPConfig sEncoderConfig;  /* WebP encoder config */
+     uint8_t *pBuffer;           /* buffer to hold raw data on encoding */
+     unsigned int buffer_offset; /* current offset into the buffer */
+@@ -149,6 +151,64 @@ static int TWebPDecode(TIFF *tif, uint8_t *op, tmsize_t occ, uint16_t s)
+                 segment_height = td->td_rowsperstrip;
+         }
+ 
++        int webp_width, webp_height;
++        if (!WebPGetInfo(tif->tif_rawcp,
++                         (uint64_t)tif->tif_rawcc > UINT32_MAX
++                             ? UINT32_MAX
++                             : (uint32_t)tif->tif_rawcc,
++                         &webp_width, &webp_height))
++        {
++            TIFFErrorExtR(tif, module, "WebPGetInfo() failed");
++            return 0;
++        }
++        if ((uint32_t)webp_width != segment_width ||
++            (uint32_t)webp_height != segment_height)
++        {
++            TIFFErrorExtR(
++                tif, module, "WebP blob dimension is %dx%d. Expected %ux%u",
++                webp_width, webp_height, segment_width, segment_height);
++            return 0;
++        }
++
++#if WEBP_DECODER_ABI_VERSION >= 0x0002
++        WebPDecoderConfig config;
++        if (!WebPInitDecoderConfig(&config))
++        {
++            TIFFErrorExtR(tif, module, "WebPInitDecoderConfig() failed");
++            return 0;
++        }
++
++        const bool bWebPGetFeaturesOK =
++            WebPGetFeatures(tif->tif_rawcp,
++                            (uint64_t)tif->tif_rawcc > UINT32_MAX
++                                ? UINT32_MAX
++                                : (uint32_t)tif->tif_rawcc,
++                            &config.input) == VP8_STATUS_OK;
++
++        WebPFreeDecBuffer(&config.output);
++
++        if (!bWebPGetFeaturesOK)
++        {
++            TIFFErrorExtR(tif, module, "WebPInitDecoderConfig() failed");
++            return 0;
++        }
++
++        const int webp_bands = config.input.has_alpha ? 4 : 3;
++        if (webp_bands != sp->nSamples &&
++            /* We accept the situation where the WebP blob has only 3 bands,
++             * whereas the raster is 4 bands. This can happen when the alpha
++             * channel is fully opaque, and WebP decoding works fine in that
++             * situation.
++             */
++            !(webp_bands == 3 && sp->nSamples == 4))
++        {
++            TIFFErrorExtR(tif, module,
++                          "WebP blob band count is %d. Expected %d", webp_bands,
++                          sp->nSamples);
++            return 0;
++        }
++#endif
++
+         buffer_size = segment_width * segment_height * sp->nSamples;
+         if (occ == (tmsize_t)buffer_size)
+         {
+@@ -461,6 +521,9 @@ static int TWebPSetupEncode(TIFF *tif)
+     if (sp->lossless)
+     {
+         sp->sPicture.use_argb = 1;
++#if WEBP_ENCODER_ABI_VERSION >= 0x0209
++        sp->sEncoderConfig.exact = sp->lossless_exact;
++#endif
+     }
+ #endif
+ 
+@@ -695,6 +758,17 @@ static int TWebPVSetField(TIFF *tif, uint32_t tag, va_list ap)
+                 "Need to upgrade WEBP driver, this version doesn't support "
+                 "lossless compression.");
+             return 0;
++#endif
++        case TIFFTAG_WEBP_LOSSLESS_EXACT:
++#if WEBP_ENCODER_ABI_VERSION >= 0x0209
++            sp->lossless_exact = va_arg(ap, int);
++            return 1;
++#else
++            TIFFErrorExtR(
++                tif, module,
++                "Need to upgrade WEBP driver, this version doesn't support "
++                "lossless compression.");
++            return 0;
+ #endif
+         default:
+             return (*sp->vsetparent)(tif, tag, ap);
+@@ -714,6 +788,9 @@ static int TWebPVGetField(TIFF *tif, uint32_t tag, va_list ap)
+         case TIFFTAG_WEBP_LOSSLESS:
+             *va_arg(ap, int *) = sp->lossless;
+             break;
++        case TIFFTAG_WEBP_LOSSLESS_EXACT:
++            *va_arg(ap, int *) = sp->lossless_exact;
++            break;
+         default:
+             return (*sp->vgetparent)(tif, tag, ap);
+     }
+@@ -726,6 +803,9 @@ static const TIFFField TWebPFields[] = {
+     {TIFFTAG_WEBP_LOSSLESS, 0, 0, TIFF_ANY, 0, TIFF_SETGET_INT,
+      TIFF_SETGET_UNDEFINED, FIELD_PSEUDO, TRUE, FALSE, "WEBP lossless/lossy",
+      NULL},
++    {TIFFTAG_WEBP_LOSSLESS_EXACT, 0, 0, TIFF_ANY, 0, TIFF_SETGET_INT,
++     TIFF_SETGET_UNDEFINED, FIELD_PSEUDO, TRUE, FALSE, "WEBP exact lossless",
++     NULL},
+ };
+ 
+ int TIFFInitWebP(TIFF *tif, int scheme)
+@@ -764,6 +844,7 @@ int TIFFInitWebP(TIFF *tif, int scheme)
+     /* Default values for codec-specific fields */
+     sp->quality_level = 75; /* default comp. level */
+     sp->lossless = 0;       /* default to false */
++    sp->lossless_exact = 1; /* exact lossless mode (if lossless enabled) */
+     sp->state = 0;
+     sp->nSamples = 0;
+     sp->psDecoder = NULL;
+diff --git a/src/3rdparty/libtiff/libtiff/tiff.h b/src/3rdparty/libtiff/libtiff/tiff.h
+index b2d1186..d8da33d 100644
+--- a/src/3rdparty/libtiff/libtiff/tiff.h
++++ b/src/3rdparty/libtiff/libtiff/tiff.h
+@@ -646,7 +646,7 @@ typedef enum
+ #define TIFFTAG_EP_EXPOSUREINDEX 37397            /* Exposure index */
+ #define TIFFTAG_EP_STANDARDID 37398               /* TIFF/EP standard version, n.n.n.n */
+ #define TIFFTAG_EP_SENSINGMETHOD 37399            /* Type of image sensor */
+-/* 
++/*
+  * TIFF/EP tags equivalent to EXIF tags
+  *     Note that TIFF-EP and EXIF use nearly the same metadata tag set, but TIFF-EP stores the tags in IFD 0,
+  *     while EXIF store the tags in a separate IFD. Either location is allowed by DNG, but the EXIF location is preferred.
+@@ -761,6 +761,7 @@ typedef enum
+ #define TIFFTAG_LERC_MAXZERROR 65567   /* LERC maximum error */
+ #define TIFFTAG_WEBP_LEVEL 65568       /* WebP compression level */
+ #define TIFFTAG_WEBP_LOSSLESS 65569    /* WebP lossless/lossy */
++#define TIFFTAG_WEBP_LOSSLESS_EXACT 65571  /* WebP lossless exact mode. Set-only mode. Default is 1. Can be set to 0 to increase compression rate, but R,G,B in areas where alpha = 0 will not be preserved */
+ #define TIFFTAG_DEFLATE_SUBCODEC 65570 /* ZIP codec: to get/set the sub-codec to use. Will default to libdeflate when available */
+ #define DEFLATE_SUBCODEC_ZLIB 0
+ #define DEFLATE_SUBCODEC_LIBDEFLATE 1
+diff --git a/src/3rdparty/libtiff/libtiff/tiffio.h b/src/3rdparty/libtiff/libtiff/tiffio.h
+index d6bf0cc..2046054 100644
+--- a/src/3rdparty/libtiff/libtiff/tiffio.h
++++ b/src/3rdparty/libtiff/libtiff/tiffio.h
+@@ -277,7 +277,7 @@ typedef struct
+ #define LOGLUV_PUBLIC 1
+ #endif
+ 
+-#if defined(__GNUC__) || defined(__attribute__)
++#if defined(__GNUC__) || defined(__clang__) || defined(__attribute__)
+ #define TIFF_ATTRIBUTE(x) __attribute__(x)
+ #else
+ #define TIFF_ATTRIBUTE(x) /*nothing*/
+diff --git a/src/3rdparty/libtiff/libtiff/tiffvers.h b/src/3rdparty/libtiff/libtiff/tiffvers.h
+index ed84776..892e9a0 100644
+--- a/src/3rdparty/libtiff/libtiff/tiffvers.h
++++ b/src/3rdparty/libtiff/libtiff/tiffvers.h
+@@ -1,9 +1,14 @@
++/* tiffvers.h version information is updated according to version information
++ * in configure.ac */
++
+ /* clang-format off */
+ 
+ /* clang-format disabled because FindTIFF.cmake is very sensitive to the
+  * formatting of below line being a single line.
++ * Furthermore, configure_file variables of type "@VAR@" are
++ * modified by clang-format and won't be substituted by CMake.
+  */
+-#define TIFFLIB_VERSION_STR "LIBTIFF, Version 4.5.1\nCopyright (c) 1988-1996 Sam Leffler\nCopyright (c) 1991-1996 Silicon Graphics, Inc."
++#define TIFFLIB_VERSION_STR "LIBTIFF, Version 4.6.0\nCopyright (c) 1988-1996 Sam Leffler\nCopyright (c) 1991-1996 Silicon Graphics, Inc."
+ /*
+  * This define can be used in code that requires
+  * compilation-related definitions specific to a
+@@ -11,12 +16,13 @@
+  * version checking should be done based on the
+  * string returned by TIFFGetVersion.
+  */
+-#define TIFFLIB_VERSION 20230609
++#define TIFFLIB_VERSION 20230908
+ 
+ /* The following defines have been added in 4.5.0 */
+ #define TIFFLIB_MAJOR_VERSION 4
+-#define TIFFLIB_MINOR_VERSION 5
+-#define TIFFLIB_MICRO_VERSION 1
++#define TIFFLIB_MINOR_VERSION 6
++#define TIFFLIB_MICRO_VERSION 0
++#define TIFFLIB_VERSION_STR_MAJ_MIN_MIC "4.6.0"
+ 
+ /* Macro added in 4.5.0. Returns TRUE if the current libtiff version is
+  * greater or equal to major.minor.micro
+diff --git a/src/3rdparty/libtiff/qt_attribution.json b/src/3rdparty/libtiff/qt_attribution.json
+index 816b055..1da529c 100644
+--- a/src/3rdparty/libtiff/qt_attribution.json
++++ b/src/3rdparty/libtiff/qt_attribution.json
+@@ -6,7 +6,7 @@
+ 
+     "Description": "",
+     "Homepage": "http://www.simplesystems.org/libtiff/",
+-    "Version": "4.5.1",
++    "Version": "4.6.0",
+     "License": "libtiff License",
+     "LicenseId": "libtiff",
+     "LicenseFile": "COPYRIGHT",
+-- 
+2.42.0
+

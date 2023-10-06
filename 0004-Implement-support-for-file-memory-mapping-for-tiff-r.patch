@@ -1,7 +1,7 @@
-From d3951fe63d4fb51baa262e0fb71eb292755ec7e5 Mon Sep 17 00:00:00 2001
+From 5354073e7fe739a2278d3719bf1830e50ba44ae8 Mon Sep 17 00:00:00 2001
 From: Eirik Aavitsland <eirik.aavitsland@qt.io>
 Date: Wed, 4 Jan 2023 18:06:57 +0100
-Subject: [PATCH 8/9] Implement support for file memory mapping for tiff
+Subject: [PATCH 04/12] Implement support for file memory mapping for tiff
  reading
 
 libtiff will by default attempt to establish a memory map for reading
@@ -73,5 +73,5 @@ index b385273..79be154 100644
  
  
 -- 
-2.41.0.rc2
+2.42.0
 
