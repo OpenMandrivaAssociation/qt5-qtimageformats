@@ -8,7 +8,7 @@
 %define __provides_exclude_from ^%{_qt5_plugindir}/.*\\.so$
 
 Name:		qt5-qtimageformats
-Version:	5.15.11
+Version:	5.15.12
 %if "%{beta}" != ""
 Release:	0.%{beta}.1
 %define qttarballdir qtimageformats-everywhere-src-%{version}-%{beta}
@@ -19,18 +19,7 @@ Release:	1
 Source0:	http://download.qt.io/official_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}/submodules/%{qttarballdir}.tar.xz
 %endif
 # From KDE
-Patch1001:	0001-Reject-tiled-tiffs-with-corrupt-tile-size-early.patch
-Patch1002:	0002-webp-support-sequential-input-device-if-full-file-is.patch
-Patch1003:	0003-Explicitly-include-QVarLengthArray-header.patch
-Patch1004:	0004-Implement-support-for-file-memory-mapping-for-tiff-r.patch
-Patch1005:	0005-TGA-Plugin-Fix-reading-of-CMapDepth.patch
-Patch1006:	0006-Update-bundled-libwebp-to-version-1.3.0.patch
-Patch1007:	0007-Update-bundled-libwebp-to-version-1.3.1.patch
-Patch1008:	0008-Update-bundled-libwebp-to-version-1.3.2.patch
-Patch1009:	0009-Fix-bundled-libtiff-compilation-lzw-warning-and-read.patch
-Patch1010:	0010-Update-bundled-libtiff-to-version-4.5.0.patch
-Patch1011:	0011-Update-bundled-libtiff-to-version-4.5.1.patch
-Patch1012:	0012-Update-bundled-libtiff-to-version-4.6.0.patch
+%(P=1001; cd %{_sourcedir}; for i in [0-9][0-9][0-9][0-9]-*.patch; do echo -e "Patch$P:\t$i"; P=$((P+1)); done)
 Summary:	Qt GUI toolkit
 Group:		Development/KDE and Qt
 License:	LGPLv2 with exceptions or GPLv3 with exceptions and GFDL

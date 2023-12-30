@@ -1,7 +1,7 @@
-From 372df1e4f73768bad69ce0bcc4cc23bb68837529 Mon Sep 17 00:00:00 2001
+From 9f51305ffff9bacb0b40cd709cfa092c8ad7f51c Mon Sep 17 00:00:00 2001
 From: Andreas Sturmlechner <asturm@gentoo.org>
 Date: Tue, 19 Sep 2023 12:57:34 +0200
-Subject: [PATCH 10/12] Update bundled libtiff to version 4.5.0
+Subject: [PATCH 08/10] Update bundled libtiff to version 4.5.0
 
 [ChangeLog][Third-Party Code] Bundled libtiff was updated to version 4.5.0
 
@@ -86584,5 +86584,5 @@ index 58cd59d..7787e89 100644
      "LicenseId": "libtiff",
      "LicenseFile": "COPYRIGHT",
 -- 
-2.42.0
+2.43.0
 

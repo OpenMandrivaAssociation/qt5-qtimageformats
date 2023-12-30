@@ -1,7 +1,7 @@
-From e8780bd6b3dd3b4524a0a291dc996ee7c14ee9c0 Mon Sep 17 00:00:00 2001
+From 85a2af8a3b5a6f13c9c1f20e17cdc46086c00c76 Mon Sep 17 00:00:00 2001
 From: Eirik Aavitsland <eirik.aavitsland@qt.io>
 Date: Fri, 30 Jun 2023 15:11:06 +0200
-Subject: [PATCH 11/12] Update bundled libtiff to version 4.5.1
+Subject: [PATCH 09/10] Update bundled libtiff to version 4.5.1
 
 [ChangeLog][Third-Party Code] Bundled libtiff was updated to version 4.5.1
 
@@ -3914,5 +3914,5 @@ index 7787e89..816b055 100644
      "LicenseId": "libtiff",
      "LicenseFile": "COPYRIGHT",
 -- 
-2.42.0
+2.43.0
 

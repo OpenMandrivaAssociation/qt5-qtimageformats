@@ -1,7 +1,7 @@
-From 38901d82ba32009a02002642dc5a046d523012c5 Mon Sep 17 00:00:00 2001
+From 29363e037494679d5d0178d6d0e61557b3e652b4 Mon Sep 17 00:00:00 2001
 From: Eirik Aavitsland <eirik.aavitsland@qt.io>
 Date: Fri, 15 Sep 2023 08:49:39 +0200
-Subject: [PATCH 08/12] Update bundled libwebp to version 1.3.2
+Subject: [PATCH 07/10] Update bundled libwebp to version 1.3.2
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -454,5 +454,5 @@ index 13b7ad1..98415c5 100644
  
  #ifdef __cplusplus
 -- 
-2.42.0
+2.43.0
 

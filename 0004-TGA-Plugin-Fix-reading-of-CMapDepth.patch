@@ -1,7 +1,7 @@
-From fb5a62cc62a1b9cb58f4d32de4b727e58542ff51 Mon Sep 17 00:00:00 2001
+From 74b52e094d502d4e3bdf5dd04261888ba03fc5c9 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Robert=20L=C3=B6hning?= <robert.loehning@qt.io>
 Date: Thu, 5 Jan 2023 23:45:43 +0100
-Subject: [PATCH 05/12] TGA Plugin: Fix reading of CMapDepth
+Subject: [PATCH 04/10] TGA Plugin: Fix reading of CMapDepth
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -52,5 +52,5 @@ index 5d086c6..3961c16 100644
      mDevice->seek(HeaderSize + offset);
  
 -- 
-2.42.0
+2.43.0
 

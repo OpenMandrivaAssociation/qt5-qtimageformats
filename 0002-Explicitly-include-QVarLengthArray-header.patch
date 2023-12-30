@@ -1,7 +1,7 @@
-From 96ba1d526807a93f2ed89fb38904a7938772e6ee Mon Sep 17 00:00:00 2001
+From 3abbcbd270f36c406f38b535d59ecb611cf773df Mon Sep 17 00:00:00 2001
 From: Volker Hilsheimer <volker.hilsheimer@qt.io>
 Date: Fri, 18 Mar 2022 09:16:36 +0100
-Subject: [PATCH 03/12] Explicitly include QVarLengthArray header
+Subject: [PATCH 02/10] Explicitly include QVarLengthArray header
 
 The template is instantiated, but only forward declared after recent
 cleanup of transitive includes.
@@ -35,5 +35,5 @@ index ac8956c..b385273 100644
  #include "tiffio.h"
  }
 -- 
-2.42.0
+2.43.0
 
