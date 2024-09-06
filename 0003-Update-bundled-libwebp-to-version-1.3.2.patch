@@ -1,7 +1,7 @@
-From b78b9002a59cee08dd8d75039190f7cdcc10c748 Mon Sep 17 00:00:00 2001
+From c46564956a151d3621af5bb5b774b9ffcb5b7a73 Mon Sep 17 00:00:00 2001
 From: Eirik Aavitsland <eirik.aavitsland@qt.io>
 Date: Fri, 15 Sep 2023 08:49:39 +0200
-Subject: [PATCH 4/7] Update bundled libwebp to version 1.3.2
+Subject: [PATCH 3/4] Update bundled libwebp to version 1.3.2
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -16,7 +16,7 @@ Reviewed-by: Mårten Nordheim <marten.nordheim@qt.io>
 ---
  src/3rdparty/libwebp/ChangeLog                |  4 +
  src/3rdparty/libwebp/NEWS                     |  4 +
- src/3rdparty/libwebp/qt_attribution.json      |  2 +-
+ src/3rdparty/libwebp/qt_attribution.json      |  4 +-
  src/3rdparty/libwebp/src/dec/vp8i_dec.h       |  2 +-
  src/3rdparty/libwebp/src/dec/vp8l_dec.c       | 46 +++++----
  src/3rdparty/libwebp/src/dec/vp8li_dec.h      |  2 +-
@@ -25,7 +25,7 @@ Reviewed-by: Mårten Nordheim <marten.nordheim@qt.io>
  src/3rdparty/libwebp/src/mux/muxi.h           |  2 +-
  .../libwebp/src/utils/huffman_utils.c         | 97 +++++++++++++++----
  .../libwebp/src/utils/huffman_utils.h         | 27 +++++-
- 11 files changed, 142 insertions(+), 48 deletions(-)
+ 11 files changed, 143 insertions(+), 49 deletions(-)
 
 diff --git a/src/3rdparty/libwebp/ChangeLog b/src/3rdparty/libwebp/ChangeLog
 index 5e85875..33ec486 100644
@@ -52,15 +52,17 @@ index 2111d33..47f8451 100644
    This is a binary compatible release.
    * security fixes for lossless encoder (#603, chromium: #1420107, #1455619,
 diff --git a/src/3rdparty/libwebp/qt_attribution.json b/src/3rdparty/libwebp/qt_attribution.json
-index 24a3e3a..d186c36 100644
+index 1b71a55..f1ddc6e 100644
 --- a/src/3rdparty/libwebp/qt_attribution.json
 +++ b/src/3rdparty/libwebp/qt_attribution.json
-@@ -6,7 +6,7 @@
+@@ -6,8 +6,8 @@
  
      "Description": "WebP is a new image format that provides lossless and lossy compression for images on the web.",
      "Homepage": "https://developers.google.com/speed/webp/",
 -    "Version": "1.3.1",
+-    "DownloadLocation": "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.3.1.tar.gz",
 +    "Version": "1.3.2",
++    "DownloadLocation": "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.3.2.tar.gz",
      "License": "BSD 3-clause \"New\" or \"Revised\" License",
      "LicenseId": "BSD-3-Clause",
      "LicenseFile": "COPYING",
@@ -454,5 +456,5 @@ index 13b7ad1..98415c5 100644
  
  #ifdef __cplusplus
 -- 
-2.45.1
+2.46.0
 

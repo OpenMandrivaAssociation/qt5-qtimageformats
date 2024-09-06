@@ -1,7 +1,7 @@
-From 4e4f5fc6bdac96f5281a3ebeb0fee78df7b1a498 Mon Sep 17 00:00:00 2001
+From 9f658c2093e81d1dc3333e594cc1aa4b0990e221 Mon Sep 17 00:00:00 2001
 From: Eirik Aavitsland <eirik.aavitsland@qt.io>
 Date: Fri, 15 Sep 2023 18:22:32 +0200
-Subject: [PATCH 7/7] Update bundled libtiff to version 4.6.0
+Subject: [PATCH 4/4] Update bundled libtiff to version 4.6.0
 
 [ChangeLog][Third-Party Code] Bundled libtiff was updated to version 4.6.0
 
@@ -23,8 +23,8 @@ Reviewed-by: Eskil Abrahamsen Blomfeldt <eskil.abrahamsen-blomfeldt@qt.io>
  src/3rdparty/libtiff/libtiff/tiff.h           |   3 +-
  src/3rdparty/libtiff/libtiff/tiffio.h         |   2 +-
  src/3rdparty/libtiff/libtiff/tiffvers.h       |  14 +-
- src/3rdparty/libtiff/qt_attribution.json      |   2 +-
- 13 files changed, 488 insertions(+), 114 deletions(-)
+ src/3rdparty/libtiff/qt_attribution.json      |   4 +-
+ 13 files changed, 489 insertions(+), 115 deletions(-)
 
 diff --git a/src/3rdparty/libtiff/ChangeLog b/src/3rdparty/libtiff/ChangeLog
 index 2124816..87b5f12 100644
@@ -920,18 +920,20 @@ index ed84776..892e9a0 100644
  /* Macro added in 4.5.0. Returns TRUE if the current libtiff version is
   * greater or equal to major.minor.micro
 diff --git a/src/3rdparty/libtiff/qt_attribution.json b/src/3rdparty/libtiff/qt_attribution.json
-index 816b055..1da529c 100644
+index de1f4a3..d4ad361 100644
 --- a/src/3rdparty/libtiff/qt_attribution.json
 +++ b/src/3rdparty/libtiff/qt_attribution.json
-@@ -6,7 +6,7 @@
+@@ -6,8 +6,8 @@
  
      "Description": "",
      "Homepage": "http://www.simplesystems.org/libtiff/",
 -    "Version": "4.5.1",
+-    "DownloadLocation": "https://download.osgeo.org/libtiff/tiff-4.5.1.tar.gz",
 +    "Version": "4.6.0",
++    "DownloadLocation": "https://download.osgeo.org/libtiff/tiff-4.6.0.tar.gz",
      "License": "libtiff License",
      "LicenseId": "libtiff",
      "LicenseFile": "COPYRIGHT",
 -- 
-2.45.1
+2.46.0
 
