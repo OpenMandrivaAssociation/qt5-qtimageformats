@@ -1,7 +1,7 @@
-From 97ba7cda01bd474573b40f44729c0927f7181e91 Mon Sep 17 00:00:00 2001
+From c91e4c63c1eaf1e23806d9df10e3d5a9ae353c1d Mon Sep 17 00:00:00 2001
 From: Volker Hilsheimer <volker.hilsheimer@qt.io>
 Date: Fri, 18 Mar 2022 09:16:36 +0100
-Subject: [PATCH 2/4] Explicitly include QVarLengthArray header
+Subject: [PATCH 2/2] Explicitly include QVarLengthArray header
 
 The template is instantiated, but only forward declared after recent
 cleanup of transitive includes.
@@ -16,7 +16,7 @@ Reviewed-by: Fabian Kosmale <fabian.kosmale@qt.io>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/src/plugins/imageformats/tiff/qtiffhandler.cpp b/src/plugins/imageformats/tiff/qtiffhandler.cpp
-index f0dfe7f..5cb0522 100644
+index f0dfe7f6..5cb0522e 100644
 --- a/src/plugins/imageformats/tiff/qtiffhandler.cpp
 +++ b/src/plugins/imageformats/tiff/qtiffhandler.cpp
 @@ -38,13 +38,14 @@
@@ -36,5 +36,5 @@ index f0dfe7f..5cb0522 100644
  extern "C" {
  #include "tiffio.h"
 -- 
-2.46.0
+2.51.2
 

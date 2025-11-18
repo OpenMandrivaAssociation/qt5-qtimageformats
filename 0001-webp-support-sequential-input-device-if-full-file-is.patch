@@ -1,7 +1,7 @@
-From ebcd7aa43e16a18e795dc0720c4821467ca694fe Mon Sep 17 00:00:00 2001
+From a9d0a280dc206d705f157146e23314d4835e3a05 Mon Sep 17 00:00:00 2001
 From: Eirik Aavitsland <eirik.aavitsland@qt.io>
 Date: Thu, 8 Sep 2022 14:52:19 +0200
-Subject: [PATCH 1/4] webp: support sequential input device if full file is
+Subject: [PATCH 1/2] webp: support sequential input device if full file is
  available
 
 Since we do no random access during decoding, just a readAll() of the
@@ -27,7 +27,7 @@ Reviewed-by: Shawn Rutledge <shawn.rutledge@qt.io>
  1 file changed, 14 insertions(+), 15 deletions(-)
 
 diff --git a/src/plugins/imageformats/webp/qwebphandler.cpp b/src/plugins/imageformats/webp/qwebphandler.cpp
-index 82d38cb..d02eb05 100644
+index 82d38cbc..d02eb054 100644
 --- a/src/plugins/imageformats/webp/qwebphandler.cpp
 +++ b/src/plugins/imageformats/webp/qwebphandler.cpp
 @@ -45,6 +45,7 @@
@@ -100,5 +100,5 @@ index 82d38cb..d02eb05 100644
  
      QRect prevFrameRect;
 -- 
-2.46.0
+2.51.2
 
