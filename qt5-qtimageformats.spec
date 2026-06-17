@@ -8,7 +8,7 @@
 %define __provides_exclude_from ^%{_qt5_plugindir}/.*\\.so$
 
 Name:		qt5-qtimageformats
-Version:	5.15.18
+Version:	5.15.19
 %if "%{beta}" != ""
 Release:	0.%{beta}.1
 %define qttarballdir qtimageformats-everywhere-src-%{version}-%{beta}
@@ -16,7 +16,7 @@ Source0:	http://download.qt.io/development_releases/qt/%(echo %{version}|cut -d.
 %else
 Release:	1
 %define qttarballdir qtimageformats-everywhere-opensource-src-%{version}
-Source0:	http://download.qt.io/official_releases/qt/%(echo %{version}|cut -d. -f1-2)/%{version}/submodules/%{qttarballdir}.tar.xz
+Source0:	http://download.qt.io/archive/qt/%(echo %{version}|cut -d. -f1-2)/%{version}/submodules/%{qttarballdir}.tar.xz
 %endif
 # From KDE
 %(P=1001; cd %{_sourcedir}; for i in [0-9][0-9][0-9][0-9]-*.patch; do echo -e "Patch$P:\t$i"; P=$((P+1)); done)
@@ -31,6 +31,7 @@ BuildRequires:	pkgconfig(libwebp)
 BuildRequires:	pkgconfig(libwebpmux)
 BuildRequires:	pkgconfig(libwebpdemux)
 BuildRequires:	pkgconfig(jasper)
+BuildRequires:	make
 # For the Provides: generator
 BuildRequires:	cmake >= 3.11.0-1
 
